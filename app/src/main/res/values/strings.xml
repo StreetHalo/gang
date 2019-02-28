@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ImgGenerator</string>
+    <integer name="com_vk_sdk_AppId">6860929</integer>
+    <string name="title_activity_img">ImgActivity</string>
+    <string name="button_size">35dp</string>
+    <string name="refresh">Изменить картинку</string>
+    <string name="share">Поделиться</string>
+    <string name="image_category">Картинка категории</string>
+    <string name="logo">Логотип приложения</string>
+    <string name="image">Смешная картинка</string>
+</resources>

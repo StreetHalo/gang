@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFEB3B</color>
+    <color name="colorPrimaryDark">#FFBE01</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="text_quote">#353631</color>
+    <color name="background">#C2E8FF</color>
+    <color name="background_card">#FAF7F7</color>
+
+    <color name="buttom_back">#32FFFFFF</color>
+</resources>

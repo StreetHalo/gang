@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "374991348344",
+    "firebase_url": "https://memegenerator-fc37b.firebaseio.com",
+    "project_id": "memegenerator-fc37b",
+    "storage_bucket": "memegenerator-fc37b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:374991348344:android:7e56a7bcb01fb47c",
+        "android_client_info": {
+          "package_name": "com.example.imggenerator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "374991348344-p8djj4s9m1nr2aiknnl21gn8lfdhfftg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.imggenerator",
+            "certificate_hash": "23b2eaababfa94a4a8497645afefcb07ecfcca06"
+          }
+        },
+        {
+          "client_id": "374991348344-q135fitjto9ne7jsfi2889gbv54j57tm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4NN_FIUPn1BcCwFE0TcFmkR6x8L4BbJM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "374991348344-q135fitjto9ne7jsfi2889gbv54j57tm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
