@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ImgGenerator</string>
+    <string name="app_name">GANG!</string>
     <integer name="com_vk_sdk_AppId">6860929</integer>
     <string name="title_activity_img">ImgActivity</string>
     <string name="button_size">35dp</string>

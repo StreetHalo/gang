@@ -58,8 +58,7 @@ class ImgActivity : AppCompatActivity() {
 
    private fun setArrays(groupName:String){
 
-            getImgs(groupName)
-            getQuote(groupName)
+            getInfo(groupName)
 
     }
 
@@ -71,37 +70,22 @@ class ImgActivity : AppCompatActivity() {
 
     }
 
-    private fun getImgs(groupName:String){
+    private fun getInfo(groupName:String){
 
         db.collection(groupName)
             .get().addOnSuccessListener { result ->
                 for (document in result) {
                     listImgs.add(document.data["img"] as String)
-                }
-
-                setImg(listImgs)
-            }
-    }
-    private fun getAllImgs(groupName:String){
-        db.collection(groupName)
-            .get().addOnSuccessListener { result ->
-                for (document in result) {
-                    listImgs.add(document.data["img"] as String)
-                }
-
-                setImg(listImgs)
-            }
-    }
-    private fun getQuote(groupName:String){
-
-        db.collection(groupName)
-            .get().addOnSuccessListener { result ->
-                for (document in result) {
                     listQuotes.add(document.data["quote"] as String)
+
                 }
                 setQuote(listQuotes)
+                setImg(listImgs)
             }
     }
+
+
+
     private fun setQuote(listQuote: MutableList<String>) {
         textRandom = Random.nextInt(0, listQuote.size)
          quote.text =listQuote[textRandom]
