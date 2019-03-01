@@ -43,6 +43,8 @@ class ImgActivity : AppCompatActivity() {
         refresh.setOnClickListener {
 
                 if(listImgs.size>0) setImg(listImgs)
+                if(listQuotes.size>0) setQuote(listQuotes)
+
 
         }
 
@@ -82,6 +84,7 @@ class ImgActivity : AppCompatActivity() {
                 setQuote(listQuotes)
                 setImg(listImgs)
             }
+            .addOnCanceledListener {  }
     }
 
 
