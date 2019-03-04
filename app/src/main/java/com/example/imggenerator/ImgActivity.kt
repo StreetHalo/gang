@@ -21,7 +21,7 @@ class ImgActivity : AppCompatActivity() {
     var listImgs = mutableListOf<String>()
     var listQuotes = mutableListOf<String>()
     val db = FirebaseFirestore.getInstance()
-
+    var text = "null"
     var textRandom = 0
     var imgRandom = 0
     var bitmap : Bitmap? = null
@@ -91,7 +91,9 @@ class ImgActivity : AppCompatActivity() {
 
     private fun setQuote(listQuote: MutableList<String>) {
         textRandom = Random.nextInt(0, listQuote.size)
-         quote.text =listQuote[textRandom]
+        text = listQuote[textRandom]
+        text = text.replace("nl" ,"\n")
+         quote.text =text
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -122,7 +124,7 @@ class ImgActivity : AppCompatActivity() {
             val uri = Uri.parse(path)
 
             val intent = Intent(Intent.ACTION_SEND)
-            intent.putExtra(Intent.EXTRA_TEXT, listQuotes[textRandom])
+            intent.putExtra(Intent.EXTRA_TEXT, text)
             intent.putExtra(Intent.EXTRA_STREAM, uri)
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             intent.type = "image/jpg"

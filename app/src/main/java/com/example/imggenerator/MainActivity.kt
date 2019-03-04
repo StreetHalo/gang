@@ -47,8 +47,6 @@ class MainActivity : AppCompatActivity(),
         startActivity(intent)
     }
 
-
-
     private fun getGroupList() {
 
         db.collection("group")
@@ -74,7 +72,6 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun saveInSharedPreference(){
-
 
     }
 }
