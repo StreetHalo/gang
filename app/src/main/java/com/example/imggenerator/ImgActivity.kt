@@ -1,9 +1,12 @@
 package com.example.imggenerator
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -11,11 +14,17 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_img.*
 import kotlin.random.Random
 import android.os.AsyncTask
+import android.os.Environment
 import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import android.util.Log
+import android.widget.Toast
 import com.google.firebase.firestore.*
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.card_view_img.*
+import java.io.File
+import java.io.FileOutputStream
 
 class ImgActivity : AppCompatActivity() {
     var listImgs = mutableListOf<String>()
@@ -25,15 +34,18 @@ class ImgActivity : AppCompatActivity() {
     var textRandom = 0
     var imgRandom = 0
     var bitmap : Bitmap? = null
-
+    private var groupName = "null"
+    private var listGroup = arrayListOf<Group>()
 
    private val TAG = this.javaClass.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_img)
-        val groupName = intent.getStringExtra("groupId")
-        setArrays(groupName)
+        listGroup = intent.getParcelableArrayListExtra("groupId")
+        setImg(listGroup)
+        setQuote(listGroup)
+
         setSupportActionBar(toolbar)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
         toolbar.setNavigationOnClickListener {
@@ -42,9 +54,8 @@ class ImgActivity : AppCompatActivity() {
 
         refresh.setOnClickListener {
 
-                if(listImgs.size>0) setImg(listImgs)
-                if(listQuotes.size>0) setQuote(listQuotes)
-
+                 setImg(listGroup)
+                    setQuote(listGroup)
 
         }
 
@@ -57,43 +68,36 @@ class ImgActivity : AppCompatActivity() {
         }
     }
 
-
-   private fun setArrays(groupName:String){
-
-            getInfo(groupName)
-
+    override fun onResume() {
+        super.onResume()
+        if(isConnected())
+        else Toast.makeText(this,"Для работы приложения необходимо подключения к Интернету", Toast.LENGTH_LONG).show()
     }
 
-    private fun setImg(listImgs: MutableList<String>) {
+
+    private fun setImg(listImgs: ArrayList<Group>) {
         imgRandom = Random.nextInt(0, listImgs.size)
-        Glide.with(this)
-            .load(listImgs[imgRandom])
+        Glide.with(applicationContext)
+            .load(listImgs[imgRandom].groupImg)
             .into(img)
 
     }
 
-    private fun getInfo(groupName:String){
-
-        db.collection(groupName)
-            .get().addOnSuccessListener { result ->
-                for (document in result) {
-                    listImgs.add(document.data["img"] as String)
-                    listQuotes.add(document.data["quote"] as String)
-
-                }
-                setQuote(listQuotes)
-                setImg(listImgs)
-            }
-            .addOnCanceledListener {  }
+    private fun isConnected(): Boolean {
+        val connectManager = getSystemService(Context.CONNECTIVITY_SERVICE)
+        return if (connectManager is ConnectivityManager) {
+            val networkInfo: NetworkInfo? = connectManager.activeNetworkInfo
+            networkInfo?.isConnected ?: false
+        } else false
     }
 
 
+    private fun setQuote(listQuote: ArrayList<Group>) {
 
-    private fun setQuote(listQuote: MutableList<String>) {
+
         textRandom = Random.nextInt(0, listQuote.size)
-        text = listQuote[textRandom]
-        text = text.replace("nl" ,"\n")
-         quote.text =text
+        text = listQuote[textRandom].text
+        quote.text =text
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -134,9 +138,9 @@ class ImgActivity : AppCompatActivity() {
         }
 
         override fun doInBackground(vararg params: Void?): Void? {
-             bitmap = Glide.with(baseContext)
+             bitmap = Glide.with(applicationContext)
                 .asBitmap()
-                .load(listImgs[imgRandom])
+                .load(listGroup[imgRandom].groupImg)
                 .submit()
                 .get()
             return null
