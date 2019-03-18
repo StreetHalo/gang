@@ -20,6 +20,12 @@ import android.support.v4.content.ContextCompat
 import android.widget.Toast
 import com.google.firebase.firestore.*
 import kotlinx.android.synthetic.main.card_view_img.*
+import android.opengl.ETC1.getHeight
+import android.opengl.ETC1.getWidth
+import android.graphics.Canvas
+import android.widget.ScrollView
+
+
 
 class ImgActivity : AppCompatActivity() {
     var listImgs = mutableListOf<String>()
@@ -67,6 +73,10 @@ class ImgActivity : AppCompatActivity() {
         else Toast.makeText(this,"Для работы приложения необходимо подключения к Интернету", Toast.LENGTH_LONG).show()
     }
 
+
+    fun test(){
+
+    }
 
     private fun setImg(listImgs: ArrayList<Group>) {
         imgRandom = Random.nextInt(0, listImgs.size)
@@ -119,23 +129,31 @@ class ImgActivity : AppCompatActivity() {
                 bitmap, "Design", null
             )
             val uri = Uri.parse(path)
-
             val intent = Intent(Intent.ACTION_SEND)
-            intent.putExtra(Intent.EXTRA_TEXT, text)
             intent.putExtra(Intent.EXTRA_STREAM, uri)
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             intent.type = "image/jpg"
-            startActivity(Intent.createChooser(intent,"Поделись"))
+            startActivity(Intent.createChooser(intent,"Поделись, не ленись!"))
             super.onPostExecute(result)
             cancel(true)
         }
 
         override fun doInBackground(vararg params: Void?): Void? {
-             bitmap = Glide.with(applicationContext)
+             bitmap = Bitmap.createBitmap(
+                 card_view.getChildAt(0).width,
+                 card_view.getChildAt(0).height,
+                 Bitmap.Config.ARGB_8888
+             )
+            val c = Canvas(bitmap)
+            card_view.getChildAt(0).draw(c)
+
+
+
+            /*= Glide.with(applicationContext)
                 .asBitmap()
                 .load(listGroup[imgRandom].groupImg)
                 .submit()
-                .get()
+                .get()*/
             return null
         }
     }
