@@ -1,4 +1,4 @@
-package com.example.imggenerator
+package com.release.gang
 
 const val REQUEST_PERMISSIONS_CODE  = 123
 

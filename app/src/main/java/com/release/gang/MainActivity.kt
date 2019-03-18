@@ -1,4 +1,4 @@
-package com.example.imggenerator
+package com.release.gang
 
 import android.content.Context
 import android.content.Intent
@@ -6,25 +6,17 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.google.firebase.firestore.FirebaseFirestore
 import com.yarolegovich.discretescrollview.DiscreteScrollView
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer
 import kotlinx.android.synthetic.main.activity_main.*
 import com.google.gson.Gson
-import android.content.ContextWrapper
-import android.graphics.Bitmap
-import android.os.Environment
-import android.os.Environment.getExternalStorageDirectory
 import com.google.android.gms.tasks.OnCanceledListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FileDownloadTask
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageMetadata
-import com.google.firebase.storage.StorageReference
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import java.io.*
@@ -36,7 +28,6 @@ class MainActivity : AppCompatActivity(),
     ViewInterface{
     private val localFile = File.createTempFile("generator", "json")
 
-    val TAG = this.javaClass.simpleName
     var listGroup = ArrayList<Group>()
     var listFiles = ArrayList<Group>()
 
@@ -59,11 +50,8 @@ class MainActivity : AppCompatActivity(),
 
 
     override fun setGroup(idGroup: Int) {
-        Log.d(TAG,listGroup[idGroup].groupId )
-        Log.d(TAG, listFiles.size.toString())
 
-        val listToActivity = listFiles.filter {  it.groupId==listGroup[idGroup].text     } as ArrayList<Group>
-
+        val listToActivity = listFiles.filter {  it.groupId==listGroup[idGroup].text } as ArrayList<Group>
         val intent = Intent(this,ImgActivity::class.java)
         intent.putExtra("groupId", listToActivity)
         startActivity(intent)
@@ -80,7 +68,6 @@ class MainActivity : AppCompatActivity(),
             override fun onSuccess(p0: FileDownloadTask.TaskSnapshot?) {
                 val reader = JsonReader(FileReader(localFile))
                 reader.isLenient = true
-                Log.d(TAG, "ERROR ${localFile.readLines()}")
                 val turnsType = object : TypeToken<ArrayList<Group>>() {}.type
                 listFiles = Gson().fromJson<ArrayList<Group>>(reader, turnsType)
                 listGroup = listFiles.filter {  it.groupId=="group" } as ArrayList<Group>
@@ -102,7 +89,9 @@ class MainActivity : AppCompatActivity(),
         newCurrent: GalleryAdapter.ViewHolder?
     ) {
         if (currentHolder != null && newCurrent != null) {
+
         }
+
     }
 
     override fun onCurrentItemChanged(viewHolder: GalleryAdapter.ViewHolder?, adapterPosition: Int) {
@@ -110,6 +99,7 @@ class MainActivity : AppCompatActivity(),
         about.text = listGroup[adapterPosition].text
         about.visibility = View.VISIBLE
         picker.visibility = View.VISIBLE
+
     }
 
     private fun isConnected(): Boolean {

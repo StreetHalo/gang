@@ -1,4 +1,4 @@
-package com.example.imggenerator
+package com.release.gang
 
 import android.os.Parcel
 import android.os.Parcelable

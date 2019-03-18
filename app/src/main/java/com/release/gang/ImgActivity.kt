@@ -1,4 +1,4 @@
-package com.example.imggenerator
+package com.release.gang
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -14,17 +14,12 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_img.*
 import kotlin.random.Random
 import android.os.AsyncTask
-import android.os.Environment
 import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
-import android.util.Log
 import android.widget.Toast
 import com.google.firebase.firestore.*
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.card_view_img.*
-import java.io.File
-import java.io.FileOutputStream
 
 class ImgActivity : AppCompatActivity() {
     var listImgs = mutableListOf<String>()
@@ -34,10 +29,8 @@ class ImgActivity : AppCompatActivity() {
     var textRandom = 0
     var imgRandom = 0
     var bitmap : Bitmap? = null
-    private var groupName = "null"
     private var listGroup = arrayListOf<Group>()
 
-   private val TAG = this.javaClass.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

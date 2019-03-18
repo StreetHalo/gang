@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:374991348344:android:7e56a7bcb01fb47c",
         "android_client_info": {
-          "package_name": "com.example.imggenerator"
+          "package_name": "com.release.gang"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "374991348344-p8djj4s9m1nr2aiknnl21gn8lfdhfftg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.imggenerator",
+            "package_name": "com.release.gang",
             "certificate_hash": "23b2eaababfa94a4a8497645afefcb07ecfcca06"
           }
         },

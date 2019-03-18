@@ -1,4 +1,4 @@
-package com.example.imggenerator
+package com.release.gang
 
 import org.junit.Test
 
